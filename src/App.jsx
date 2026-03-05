@@ -46,6 +46,9 @@ const filteredShows = shows.filter(function(show) {
       placeholder='Add a movie or show...'
       value={input}
       onChange={(e) => setInput(e.target.value)}
+      onKeyDown={(e) => {                   
+        if (e.key === 'Enter') addShow()
+      }}
       />
       <button onClick={addShow}>Add</button>
       </div>
@@ -67,7 +70,7 @@ const filteredShows = shows.filter(function(show) {
               <span className={show.watched ? 'watched-title' : 'show-title'}>
                 {show.title}
               </span>     
-              <div>         
+              <div className='btn-group'>         
               <button className='btn-watched'
               onClick={() => toggleWatched(index)}>
                 {show.watched ? '✅ Watched' : '👁️ Unwatched'}
