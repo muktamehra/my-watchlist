@@ -83,19 +83,27 @@ button:hover {
 
 ul {
   list-style: none;
-  max-width: 700px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
 li {
   background-color: #252536;
-  padding: 16px 20px;
-  border-radius: 10px;
-  margin-bottom: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  border-left: 4px solid #c9c5be;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
 
 .show-title {
@@ -110,26 +118,35 @@ li {
   font-weight: normal;
 }
 
+.btn-watched:hover {
+  background-color: #c9c5be;
+  color: #1a1a2e;
+}
+
 .btn-watched {
   background-color: transparent;
   border: 2px solid #c9c5be;
   color: #c9c5be;
-}
-
-.btn-watched:hover {
-  background-color: #c9c5be;
-  color: #1a1a2e;
+  padding: 6px 10px !important;
+  font-size: 0.75rem !important;
 }
 
 .btn-delete {
   background-color: transparent;
   border: 2px solid #ff4444;
   color: #ff4444;
+  padding: 6px 10px !important;
+  font-size: 0.75rem !important;
 }
 
 .btn-delete:hover {
   background-color: #ff4444;
   color: #ffffff;
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
 }
 
 .hero {
@@ -209,4 +226,120 @@ li {
 
 .header-nav a:hover {
   color: #c9c5be;
+}
+
+.footer {
+  text-align: center;
+  padding: 24px 40px;
+  margin-top: 40px;
+  border-top: 1px solid #2d2d2d;
+  color: #555555;
+  font-size: 0.85rem;
+  background-color: #c9c5be;
+}
+
+.footer p {
+  margin-bottom: 6px;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  color: #aaaaaa;
+}
+
+.counter span {
+  background-color: #252536;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+  padding: 0 40px 40px 40px;
+}
+
+.popular-section {
+  margin: 40px 0;
+}
+
+.popular-section h2 {
+  font-size: 1.5rem;
+  color: #c9c5be;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.popular-card {
+  background-color: #252536;
+  border-radius: 12px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 3px solid #c9c5be;
+}
+
+.popular-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.popular-card h3 {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.genre {
+  font-size: 0.8rem;
+  color: #888888;
+  background-color: #1a1a2e;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.popular-card button {
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  background-color: transparent;
+  border: 2px solid #c9c5be;
+  color: #c9c5be;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+}
+
+.popular-card button:hover {
+  background-color: #c9c5be;
+  color: #1a1a2e;
+}
+
+.popular-card img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
 }

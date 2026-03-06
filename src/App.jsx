@@ -2,6 +2,8 @@ import { useState } from 'react'
 import './App.css'
 import Hero from './Hero'
 import Header from './Header'
+import Footer from './Footer'
+import PopularShows from './PopularShows'
 
 function App() {
 const [shows, setShows] = useState([])
@@ -9,9 +11,10 @@ const [input, setInput] = useState('')
 const [filter, setFilter] = useState('all')
 
 
-function addShow() {
-  if (input === '') return
-  setShows([...shows, { title: input, watched: false}])
+function addShow(title) {
+  const newTitle = title || input
+  if (newTitle === '') return
+  setShows([...shows, { title: newTitle, watched: false}])
   setInput('')
 }
 
@@ -36,10 +39,22 @@ const filteredShows = shows.filter(function(show) {
   if (filter === 'unwatched') return show.watched === false
 })
 
+const totalShows = shows.length
+const watchedShows = shows.filter(function(show) {
+  return show.watched === true
+}).length
+
   return (
     <div>
       <Header />
+      <div className='container'>
       <Hero />
+      <PopularShows addToWatchlist={addShow} />
+      <div className='counter'>
+          <span>Total: {totalShows}</span>
+          <span>Watched: {watchedShows}</span>
+          <span>Unwatched: {totalShows - watchedShows}</span>
+        </div>
       <div className='add-section'>
       <input 
       type="text" 
@@ -50,7 +65,7 @@ const filteredShows = shows.filter(function(show) {
         if (e.key === 'Enter') addShow()
       }}
       />
-      <button onClick={addShow}>Add</button>
+      <button onClick={addShow}>➕ Add</button>
       </div>
       <div className='filters'>
       <button 
@@ -82,6 +97,8 @@ const filteredShows = shows.filter(function(show) {
           )
         })}
       </ul>
+    </div>
+    <Footer />
     </div>
   )
 }
