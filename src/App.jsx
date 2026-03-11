@@ -9,12 +9,14 @@ function App() {
 const [shows, setShows] = useState([])
 const [input, setInput] = useState('')
 const [filter, setFilter] = useState('all')
+const [genre, setGenre] = useState('Drama')
 
 
-function addShow(title) {
+function addShow(title, showGenre) {
   const newTitle = title || input
+  const newGenre = showGenre || genre
   if (newTitle === '') return
-  setShows([...shows, { title: newTitle, watched: false}])
+  setShows([...shows, { title: newTitle, watched: false, genre: newGenre }])
   setInput('')
 }
 
@@ -27,7 +29,16 @@ function deleteShow(index) {
 function toggleWatched(index) {
   setShows(shows.map(function(show, i) {
     if(i === index) {
-      return{ ...show, watched: !show.watched }
+      return{ ...show, watched: !show.watched, rating: 0 }
+    }
+    return show
+  }))
+}
+
+function rateShow(index, rating) {
+  setShows(shows.map(function(show, i) {
+    if(i === index) {
+      return { ...show, rating: rating }
     }
     return show
   }))
@@ -65,7 +76,17 @@ const watchedShows = shows.filter(function(show) {
         if (e.key === 'Enter') addShow()
       }}
       />
-      <button onClick={addShow}>➕ Add</button>
+  <select value={genre} onChange={(e) => setGenre(e.target.value)}>
+    <option value="Drama">Drama</option>
+    <option value="Action">Action</option>
+    <option value="Comedy">Comedy</option>
+    <option value="Sci-Fi">Sci-Fi</option>
+    <option value="Horror">Horror</option>
+    <option value="Romance">Romance</option>
+    <option value="Documentary">Documentary</option>
+  </select>
+
+      <button onClick={() => addShow()}>➕ Add</button>
       </div>
       <div className='filters'>
       <button 
@@ -82,18 +103,32 @@ const watchedShows = shows.filter(function(show) {
         {filteredShows.map(function(show, index) {
           return (
             <li key={index}>
-              <span className={show.watched ? 'watched-title' : 'show-title'}>
-                {show.title}
-              </span>     
-              <div className='btn-group'>         
-              <button className='btn-watched'
-              onClick={() => toggleWatched(index)}>
-                {show.watched ? '✅ Watched' : '👁️ Unwatched'}
-              </button>
-              <button className='btn-delete'
-              onClick={() => deleteShow(index)}>🗑️ Delete</button>
-              </div>
-            </li>
+  <div>
+    <span className={show.watched ? 'watched-title' : 'show-title'}>
+      {show.title}
+    </span>
+    <span className='genre-tag'>{show.genre}</span>
+    {show.watched && (
+      <div className='stars'>
+        {[1,2,3,4,5].map(function(star) {
+          return (
+            <span
+              key={star}
+              className={star <= show.rating ? 'star filled' : 'star'}
+              onClick={() => rateShow(index, star)}
+            >★</span>
+          )
+        })}
+      </div>
+    )}
+  </div>
+  <div className='btn-group'>
+    <button className='btn-watched' onClick={() => toggleWatched(index)}>
+      {show.watched ? '✅ Watched' : '👁️ Unwatched'}
+    </button>
+    <button className='btn-delete' onClick={() => deleteShow(index)}>🗑️ Delete</button>
+  </div>
+</li>
           )
         })}
       </ul>
