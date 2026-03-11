@@ -398,3 +398,48 @@ select:hover, select:focus {
   border-radius: 20px;
   margin-left: 10px;
 }
+
+.stars {
+  margin-top: 6px;
+}
+
+.star {
+  font-size: 1.2rem;
+  color: #555555;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: #f5c518;
+}
+
+.star:hover {
+  color: #f5c518;
+}
+
+.genre-select {
+  background-color: #1a1a2e;
+  color: #888888;
+  border: none;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  padding: 3px 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.genre-select:hover {
+  color: #c9c5be;
+}
+
+.genre-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #ff4444;
+  background-color: #1a1a2e;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}

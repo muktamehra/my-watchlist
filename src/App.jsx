@@ -44,6 +44,15 @@ function rateShow(index, rating) {
   }))
 }
 
+function changeGenre(index, newGenre) {
+  setShows(shows.map(function(show, i) {
+    if(i === index) {
+      return { ...show, genre: newGenre }
+    }
+    return show
+  }))
+}
+
 const filteredShows = shows.filter(function(show) {
   if (filter === 'all') return true
   if (filter === 'watched') return show.watched === true
@@ -107,7 +116,18 @@ const watchedShows = shows.filter(function(show) {
     <span className={show.watched ? 'watched-title' : 'show-title'}>
       {show.title}
     </span>
-    <span className='genre-tag'>{show.genre}</span>
+   <span 
+  className='genre-tag'
+  onClick={() => {
+    const genres = ['Drama', 'Action', 'Comedy', 'Sci-Fi', 'Horror', 'Romance', 'Documentary']
+    const currentIndex = genres.indexOf(show.genre)
+    const nextGenre = genres[(currentIndex + 1) % genres.length]
+    changeGenre(index, nextGenre)
+  }}
+  title="Click to change genre"
+>
+  {show.genre}
+</span>
     {show.watched && (
       <div className='stars'>
         {[1,2,3,4,5].map(function(star) {

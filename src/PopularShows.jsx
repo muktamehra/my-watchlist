@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
 
-function PopularShows({ addToWatchlist }) {
-  const [movies, setMovies] = useState([])
-
   const popular = [
     { title: "The Godfather", id: 238 },
     { title: "Inception", id: 27205 },
@@ -13,6 +10,9 @@ function PopularShows({ addToWatchlist }) {
     { title: "Fight Club", id: 550 },
     { title: "Forrest Gump", id: 13 },
   ]
+
+  function PopularShows({ addToWatchlist }) {
+  const [movies, setMovies] = useState([])
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY
