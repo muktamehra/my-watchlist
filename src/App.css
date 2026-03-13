@@ -531,3 +531,10 @@ select:hover, select:focus {
     font-size: 1.1rem;
   }
 }
+
+.duplicate-warning {
+  color: #ff4444;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}

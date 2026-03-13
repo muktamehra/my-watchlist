@@ -10,6 +10,7 @@ const [shows, setShows] = useState([])
 const [input, setInput] = useState('')
 const [filter, setFilter] = useState('all')
 const [genre, setGenre] = useState('Drama')
+const [duplicateMessage, setDuplicateMessage] = useState('')
 
 useEffect(() => {
   const savedShows = localStorage.getItem("shows")
@@ -28,9 +29,17 @@ useEffect(() => {
 function addShow(title, showGenre) {
   const newTitle = title || input
   const newGenre = showGenre || genre
+
   if (newTitle === '') return
+
+ if (shows.some(show => show.title.toLowerCase() === newTitle.toLowerCase())) {
+  setDuplicateMessage("This movie is already in your watchlist")
+  return
+}
+
   setShows([...shows, { id: Date.now(), title: newTitle, watched: false, genre: newGenre }])
   setInput('')
+  setDuplicateMessage('')
 }
 
 function deleteShow(index) {
@@ -110,6 +119,13 @@ const watchedShows = shows.filter(function(show) {
 
       <button onClick={() => addShow()}>➕ Add</button>
       </div>
+
+  {duplicateMessage && (
+  <p className="duplicate-warning">
+    {duplicateMessage}
+  </p>
+)}
+
       <div className='filters'>
       <button 
       className={filter === 'all' ? 'active' : ''}
