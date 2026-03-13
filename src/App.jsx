@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Hero from './Hero'
 import Header from './Header'
@@ -11,12 +11,25 @@ const [input, setInput] = useState('')
 const [filter, setFilter] = useState('all')
 const [genre, setGenre] = useState('Drama')
 
+useEffect(() => {
+  const savedShows = localStorage.getItem("shows")
+  if (savedShows) {
+    setShows(JSON.parse(savedShows))
+  }
+}, [])
+
+useEffect(() => {
+  if (shows.length > 0) {
+  localStorage.setItem("shows", JSON.stringify(shows))
+  }
+}, [shows])
+
 
 function addShow(title, showGenre) {
   const newTitle = title || input
   const newGenre = showGenre || genre
   if (newTitle === '') return
-  setShows([...shows, { title: newTitle, watched: false, genre: newGenre }])
+  setShows([...shows, { id: Date.now(), title: newTitle, watched: false, genre: newGenre }])
   setInput('')
 }
 
@@ -108,50 +121,70 @@ const watchedShows = shows.filter(function(show) {
       className={filter === 'unwatched' ? 'active' : ''}
       onClick={() => setFilter('unwatched')}>Unwatched</button>
       </div>   
-      <ul>
-        {filteredShows.map(function(show, index) {
-          return (
-            <li key={index}>
-  <div>
-    <span className={show.watched ? 'watched-title' : 'show-title'}>
-      {show.title}
-    </span>
-   <span 
-  className='genre-tag'
-  onClick={() => {
-    const genres = ['Drama', 'Action', 'Comedy', 'Sci-Fi', 'Horror', 'Romance', 'Documentary']
-    const currentIndex = genres.indexOf(show.genre)
-    const nextGenre = genres[(currentIndex + 1) % genres.length]
-    changeGenre(index, nextGenre)
-  }}
-  title="Click to change genre"
->
-  {show.genre}
-</span>
-    {show.watched && (
-      <div className='stars'>
-        {[1,2,3,4,5].map(function(star) {
-          return (
-            <span
-              key={star}
-              className={star <= show.rating ? 'star filled' : 'star'}
-              onClick={() => rateShow(index, star)}
-            >★</span>
-          )
-        })}
-      </div>
-    )}
-  </div>
-  <div className='btn-group'>
-    <button className='btn-watched' onClick={() => toggleWatched(index)}>
-      {show.watched ? '✅ Watched' : '👁️ Unwatched'}
-    </button>
-    <button className='btn-delete' onClick={() => deleteShow(index)}>🗑️ Delete</button>
-  </div>
-</li>
-          )
-        })}
-      </ul>
+ <ul>
+  {filteredShows.length === 0 ? (
+    <p style={{ textAlign: "center", marginTop: "20px" }}>
+      Your watchlist is empty. Add a movie or show to get started.
+    </p>
+  ) : (
+    filteredShows.map(function(show, index) {
+      return (
+        <li key={show.id}>
+          <div>
+            <span className={show.watched ? 'watched-title' : 'show-title'}>
+              {show.title}
+            </span>
+
+            <span 
+              className='genre-tag'
+              onClick={() => {
+                const genres = ['Drama', 'Action', 'Comedy', 'Sci-Fi', 'Horror', 'Romance', 'Documentary']
+                const currentIndex = genres.indexOf(show.genre)
+                const nextGenre = genres[(currentIndex + 1) % genres.length]
+                changeGenre(index, nextGenre)
+              }}
+              title="Click to change genre"
+            >
+              {show.genre}
+            </span>
+
+            {show.watched && (
+              <div className='stars'>
+                {[1,2,3,4,5].map(function(star) {
+                  return (
+                    <span
+                      key={star}
+                      className={star <= show.rating ? 'star filled' : 'star'}
+                      onClick={() => rateShow(index, star)}
+                    >
+                      ★
+                    </span>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          <div className='btn-group'>
+            <button
+              className='btn-watched'
+              onClick={() => toggleWatched(index)}
+            >
+              {show.watched ? '✅ Watched' : '👁️ Unwatched'}
+            </button>
+
+            <button
+              className='btn-delete'
+              onClick={() => deleteShow(index)}
+            >
+              🗑️ Delete
+            </button>
+          </div>
+        </li>
+      )
+    })
+  )}
+</ul>
     </div>
     <Footer />
     </div>
