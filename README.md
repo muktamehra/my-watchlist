@@ -9,6 +9,7 @@ ________________________________________
 •	🎥 Browse Popular Picks — real movie posters fetched from the TMDB API
 •	➕ Add Shows — add any movie or TV show to your watchlist
 •	👁️ Track Progress — mark shows as watched or unwatched
+•	⭐ Star Ratings — rate watched shows out of 5 stars
 •	🏷️ Genre Tags — assign and change genres with a single click
 •	🔍 Filter — view All, Watched or Unwatched shows
 •	📊 Counter — see your total, watched and unwatched counts at a glance
