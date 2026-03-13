@@ -22,10 +22,8 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  if (shows.length > 0) {
   localStorage.setItem("shows", JSON.stringify(shows))
-  }
-}, [shows])
+  }, [shows])
 
 
 function addShow(title, showGenre) {
@@ -39,7 +37,13 @@ function addShow(title, showGenre) {
   return
 }
 
-  setShows([...shows, { id: Date.now(), title: newTitle, watched: false, genre: newGenre }])
+  setShows([...shows, 
+  { id: Date.now(), 
+  title: newTitle, 
+  watched: false, 
+  genre: newGenre 
+ }
+ ])
   setInput('')
   setDuplicateMessage('')
   inputRef.current.focus()
