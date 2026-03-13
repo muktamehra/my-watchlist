@@ -46,10 +46,14 @@ function addShow(title, showGenre) {
 }
 
 function deleteShow(index) {
+  const confirmed = window.confirm("Are you sure you want to delete this movie?")
+  if (!confirmed) return
+
   setShows(shows.filter(function(show, i) {
     return i !== index
   }))
 }
+
 
 function toggleWatched(index) {
   setShows(shows.map(function(show, i) {
