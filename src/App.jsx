@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Hero from './Hero'
 import Header from './Header'
@@ -11,6 +11,8 @@ const [input, setInput] = useState('')
 const [filter, setFilter] = useState('all')
 const [genre, setGenre] = useState('Drama')
 const [duplicateMessage, setDuplicateMessage] = useState('')
+
+const inputRef = useRef(null)
 
 useEffect(() => {
   const savedShows = localStorage.getItem("shows")
@@ -40,6 +42,7 @@ function addShow(title, showGenre) {
   setShows([...shows, { id: Date.now(), title: newTitle, watched: false, genre: newGenre }])
   setInput('')
   setDuplicateMessage('')
+  inputRef.current.focus()
 }
 
 function deleteShow(index) {
@@ -99,6 +102,7 @@ const watchedShows = shows.filter(function(show) {
         </div>
       <div className='add-section'>
       <input 
+      ref ={inputRef}
       type="text" 
       placeholder='Add a movie or show...'
       value={input}
